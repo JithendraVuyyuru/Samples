@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  background-color: #f2f2f2;
+  color: #222222;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+:root[data-theme="dark"] body {
+  background-color: #111111;
+  color: #ffffff;
+}
+
+.pattern-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+.pattern-grid {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+  background-size: 36px 36px;
+  animation: grid-shift 10s linear infinite;
+}
+
+.pattern-dot {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.18) 1px, transparent 1px);
+  background-size: 22px 22px;
+  animation: dot-float 8s ease-in-out infinite;
+}
+
+:root[data-theme="dark"] .pattern-grid {
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.08) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+}
+
+:root[data-theme="dark"] .pattern-dot {
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.22) 1px,
+    transparent 1px
+  );
+}
+
+@keyframes grid-shift {
+  0% {
+    background-position: 0 0, 0 0;
+  }
+  100% {
+    background-position: 72px 72px, 72px 72px;
+  }
+}
+
+@keyframes dot-float {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 10px 18px;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
