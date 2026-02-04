@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { useDrop } from "react-dnd";
 import { LayoutGrid } from "lucide-react";
 import { useEditorStore, type WidgetSizeOption } from "../../store/useEditorStore";
@@ -37,6 +38,14 @@ export function EditorCanvas() {
       isOver: monitor.isOver(),
     }),
   }));
+  
+    const dropTargetRef = useRef<HTMLDivElement>(null);
+  
+    useEffect(() => {
+          if (dropTargetRef.current) {
+                  dropRef(dropTargetRef);
+                }
+        }, [dropRef]);
 
   return (
     <section className="flex flex-1 flex-col gap-6">
@@ -53,7 +62,7 @@ export function EditorCanvas() {
         </div>
       </div>
       <div
-        ref={dropRef}
+        ref={dropTargetRef}
         className={cn(
           "grid min-h-[520px] grid-cols-1 gap-5 rounded-3xl border border-dashed border-current/20 bg-white/80 p-6 md:grid-cols-2 xl:grid-cols-4",
           isOver && "border-black/50 bg-white"
