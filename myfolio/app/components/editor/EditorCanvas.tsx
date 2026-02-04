@@ -43,9 +43,9 @@ export function EditorCanvas() {
   
     useEffect(() => {
           if (dropTargetRef.current) {
-                  drop(dropTargetRef);
+                  dropRef(dropTargetRef);
                 }
-        }, [drop]);
+        }, [dropRef]);
 
   return (
     <section className="flex flex-1 flex-col gap-6">
