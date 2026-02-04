@@ -1,7 +1,11 @@
 "use client";
 
 import { Paintbrush, Sun, Moon, Grid2X2, Waves, Dot } from "lucide-react";
-import { useThemeStore, type PatternMode } from "../store/useThemeStore";
+import {
+  useThemeStore,
+  type PatternMode,
+  type AccentColor,
+} from "../store/useThemeStore";
 import { cn } from "../lib/utils";
 
 const patterns: { key: PatternMode; label: string; icon: JSX.Element }[] = [
@@ -10,15 +14,23 @@ const patterns: { key: PatternMode; label: string; icon: JSX.Element }[] = [
   { key: "dot", label: "Dot", icon: <Dot size={16} /> },
 ];
 
+const accents: { key: AccentColor; label: string }[] = [
+  { key: "indigo", label: "Indigo" },
+  { key: "emerald", label: "Emerald" },
+  { key: "rose", label: "Rose" },
+];
+
 export function CustomizationDock() {
   const theme = useThemeStore((state) => state.theme);
   const spacing = useThemeStore((state) => state.spacing);
   const radius = useThemeStore((state) => state.radius);
   const pattern = useThemeStore((state) => state.pattern);
+  const accent = useThemeStore((state) => state.accent);
   const setTheme = useThemeStore((state) => state.setTheme);
   const setSpacing = useThemeStore((state) => state.setSpacing);
   const setRadius = useThemeStore((state) => state.setRadius);
   const setPattern = useThemeStore((state) => state.setPattern);
+  const setAccent = useThemeStore((state) => state.setAccent);
 
   return (
     <div className="pointer-events-none fixed bottom-6 left-1/2 z-50 w-full max-w-4xl -translate-x-1/2 px-6">
@@ -76,6 +88,7 @@ export function CustomizationDock() {
               "w-full",
               theme === "dark" ? "accent-white" : "accent-black"
             )}
+            style={{ accentColor: "var(--accent-color)" }}
           />
         </div>
 
@@ -91,7 +104,31 @@ export function CustomizationDock() {
               "w-full",
               theme === "dark" ? "accent-white" : "accent-black"
             )}
+            style={{ accentColor: "var(--accent-color)" }}
           />
+        </div>
+
+        <div className="flex items-center gap-2">
+          <p className="text-sm font-semibold">Accent</p>
+          <div className="flex gap-2">
+            {accents.map((item) => (
+              <button
+                key={item.key}
+                className={cn(
+                  "flex items-center gap-1 rounded-full border border-black/10 px-3 py-1 text-xs font-semibold",
+                  theme === "dark" && "border-white/10",
+                  accent === item.key
+                    ? "accent-pill"
+                    : theme === "dark"
+                    ? "text-white"
+                    : "text-black"
+                )}
+                onClick={() => setAccent(item.key)}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="flex items-center gap-2">

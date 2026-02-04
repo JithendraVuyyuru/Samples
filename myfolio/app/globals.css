@@ -4,6 +4,7 @@
 
 :root {
   color-scheme: light;
+  --accent-color: #6366f1;
 }
 
 :root[data-theme="dark"] {
@@ -15,6 +16,11 @@ body {
   background-color: #f2f2f2;
   color: #222222;
   transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.accent-pill {
+  background-color: var(--accent-color);
+  color: white;
 }
 
 :root[data-theme="dark"] body {
