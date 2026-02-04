@@ -23,9 +23,8 @@ const sizeClasses: Record<WidgetSizeOption, string> = {
 export function EditorCanvas() {
   const widgets = useEditorStore((state) => state.widgets);
   const addWidget = useEditorStore((state) => state.addWidget);
-  const dropTargetRef = useRef<HTMLDivElement>(null);
 
-  const [{ isOver }, drop] = useDrop(() => ({
+  const [{ isOver }, dropRef] = useDrop(() => ({
     accept: "WIDGET",
     drop: (item: DragItem) => {
       addWidget({
@@ -39,12 +38,14 @@ export function EditorCanvas() {
       isOver: monitor.isOver(),
     }),
   }));
-
-  useEffect(() => {
-    if (dropTargetRef.current) {
-      drop(dropTargetRef);
-    }
-  }, [drop]);
+  
+    const dropTargetRef = useRef<HTMLDivElement>(null);
+  
+    useEffect(() => {
+          if (dropTargetRef.current) {
+                  drop(dropTargetRef);
+                }
+        }, [drop]);
 
   return (
     <section className="flex flex-1 flex-col gap-6">
